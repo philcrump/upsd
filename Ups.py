@@ -1,7 +1,7 @@
 import serial
 import termios
 from copy import deepcopy
-from json imports dumps as jsondumps
+from json import dumps as jsondumps
 from datetime.datetime import utcnow
 
 class Ups:
