@@ -64,13 +64,13 @@ class Ups:
     
     def csvHeader(self):
         l = []
-        for k, v in self.dict().iteritems():
+        for k, v in sorted(self.dict()).iteritems():
             l.append('%s' % str(k))
         return ','.join(l)+'\n'
     
     def csv(self):
         l = []
-        for k, v in self.dict().iteritems():
+        for k, v in sorted(self.dict()).iteritems():
             l.append('%s' % str(v))
         return ','.join(l)+'\n'
 
