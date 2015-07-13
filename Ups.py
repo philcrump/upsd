@@ -64,14 +64,15 @@ class Ups:
     
     def csvHeader(self):
         l = []
-        for k, v in sorted(self.dict()).iteritems():
+        for k in sorted(self.dict()):
             l.append('%s' % str(k))
         return ','.join(l)+'\n'
     
     def csv(self):
         l = []
-        for k, v in sorted(self.dict()).iteritems():
-            l.append('%s' % str(v))
+        _dict = self.dict()
+        for k in sorted(_dict):
+            l.append('%s' % str(_dict[k]))
         return ','.join(l)+'\n'
 
     def refresh(self):
