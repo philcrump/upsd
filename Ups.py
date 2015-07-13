@@ -65,12 +65,12 @@ class Ups:
     def csvHeader(self):
         for k, v in self.dict().iteritems():
             l.append('%s' % str(k))
-        return ','.join(l))
+        return ','.join(l)
     
     def csv(self):
         for k, v in self.dict().iteritems():
             l.append('%s' % str(v))
-        return ','.join(l))
+        return ','.join(l)
 
     def refresh(self):
         self.__getUPSinfo('Y')
