@@ -2,24 +2,36 @@
 
 serialPort = '/dev/ttyS0'
 jsonPath = ''
+csvPath = ''
 pollTime = 30
 
 from time import sleep
 from os import system
 from Ups import Ups
 
+ups = Ups(serialPort)
+if not ups:
+    print("Opening Serial Port failed!")
+    exit()
+
+if csvPath!='':
+        with open(csvPath, 'a') as outfile:
+            outfile.write(ups.csvHeader())
+
 while(1):
-    ups = Ups(serialPort)
-    if not ups:
-        print("Opening Serial Port failed!")
-        exit()
     while not ups.refresh():
         print("UPS Poll failed, sleeping..")
         sleep(5)
+    
     print(ups.json())
+    
     if jsonPath!='':
         with open(jsonPath, 'w') as outfile:
             outfile.write(ups.json())
+    
+    if csvPath!='':
+        with open(csvPath, 'a') as outfile:
+            outfile.write(ups.csv())
     
     if ups.batteryLow:
         if ups.refresh() and ups.batteryLow:
