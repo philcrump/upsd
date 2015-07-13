@@ -1,10 +1,13 @@
-import termios
-import copy
-import json
 import serial
+import termios
+from copy import deepcopy
+from json imports dumps as jsondumps
+from datetime.datetime import utcnow
 
 class Ups:
     serialPort = '' # Default in __init__()
+    
+    refreshed = ''
 
     upsName = 'Unknown';
     upsCalibrating = False;
@@ -36,6 +39,8 @@ class Ups:
 
     def dict(self):
         _dict = {}
+        _dict['refreshed'] = self.refreshed
+        
         _dict['upsName'] = self.upsName
         _dict['upsCalibrating'] = self.upsCalibrating
         _dict['upsTemp'] = self.upsTemp
@@ -60,7 +65,7 @@ class Ups:
         return _dict
 
     def json(self):
-        return json.dumps(self.dict())
+        return jsondumps(self.dict())
     
     def csvHeader(self):
         l = []
@@ -143,6 +148,7 @@ class Ups:
                 self.batteryHealthy = True
         except:
             return False
+        self.refreshed = utcnow().isoformat()
         return True
 
     def __openSerialPort(self):
@@ -169,7 +175,7 @@ class Ups:
             self._fd.write(sendChar)
             self._fd.flush()
             returnString1 = self._fd.readline().strip()
-            returnString = copy.deepcopy(returnString1)
+            returnString = deepcopy(returnString1)
         except:
             try:
                 self._fd.close()
