@@ -7,6 +7,7 @@ pollTime = 30
 
 from time import sleep
 from os import system
+from os.path import isfile
 from Ups import Ups
 
 ups = Ups(serialPort)
@@ -15,7 +16,8 @@ if not ups:
     exit()
 
 if csvPath!='':
-        with open(csvPath, 'a') as outfile:
+    if not isfile(csvPath):
+        with open(csvPath, 'w') as outfile:
             outfile.write(ups.csvHeader())
 
 while(1):
