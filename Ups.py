@@ -2,7 +2,7 @@ import serial
 import termios
 from copy import deepcopy
 from json import dumps as jsondumps
-from datetime.datetime import utcnow
+from datetime import datetime
 
 class Ups:
     serialPort = '' # Default in __init__()
@@ -148,7 +148,7 @@ class Ups:
                 self.batteryHealthy = True
         except:
             return False
-        self.refreshed = utcnow().isoformat()
+        self.refreshed = datetime.utcnow().isoformat()
         return True
 
     def __openSerialPort(self):
