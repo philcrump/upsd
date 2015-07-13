@@ -63,11 +63,13 @@ class Ups:
         return json.dumps(self.dict())
     
     def csvHeader(self):
+        l = []
         for k, v in self.dict().iteritems():
             l.append('%s' % str(k))
         return ','.join(l)
     
     def csv(self):
+        l = []
         for k, v in self.dict().iteritems():
             l.append('%s' % str(v))
         return ','.join(l)
