@@ -66,13 +66,13 @@ class Ups:
         l = []
         for k, v in self.dict().iteritems():
             l.append('%s' % str(k))
-        return ','.join(l)
+        return ','.join(l)+'\n'
     
     def csv(self):
         l = []
         for k, v in self.dict().iteritems():
             l.append('%s' % str(v))
-        return ','.join(l)
+        return ','.join(l)+'\n'
 
     def refresh(self):
         self.__getUPSinfo('Y')
