@@ -151,6 +151,28 @@ class Ups:
         self.refreshed = datetime.utcnow().isoformat()
         return True
 
+    def calibrate(self):
+        ## Untested
+        self.__getUPSinfo('Y')
+        self.upsName = self.__getUPSinfo('\x01')
+        try:
+            self.__getUPSinfo('Y')
+            self.upsName = self.__getUPSinfo('\x01')
+        except:
+            return False
+        
+        try:
+            self.batteryPercent = float(self.__getUPSinfo('f'))
+        except:
+            return False
+        
+        if self.batteryPercent != 100.0:
+            return False
+        
+        self.__getUPSinfo('D')
+        
+        return True
+         
     def __openSerialPort(self):
         self._fd = open(self.serialPort, 'r+', 0)
         #### Set the serial line to 2400 8n1
